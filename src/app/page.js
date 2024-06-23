@@ -2,10 +2,11 @@ import HomeHeader from './components/HomeHeader';
 import HomeSearch from './components/HomeSearch';
 import Footer from './components/Footer';
 import Image from 'next/image';
-
+import { Suspense } from 'react'
 export default function Home() {
   return (
     <>
+    <Suspense>
       <HomeHeader />
       <div className='flex flex-col items-center mt-24'>
         <Image
@@ -18,6 +19,7 @@ export default function Home() {
         />
         <HomeSearch />
       </div>
+      </Suspense>
       {/* <Footer/> */}
     </>
   );
