@@ -1,5 +1,6 @@
 import ImageSearchResults from '@/app/components/ImageSearchResults';
 import Link from 'next/link';
+import  {Suspense}  from 'react'
 
 export default async function ImageSearchPage({ searchParams }) {
   const startIndex = searchParams.start || '1';
@@ -13,6 +14,7 @@ export default async function ImageSearchPage({ searchParams }) {
 
   if (!results) {
     return (
+      <Suspense>
       <div className='flex flex-col justify-center items-center pt-10'>
         <h1 className='text-3xl mb-4'>
           No results found for {searchParams.searchTerm}
@@ -24,8 +26,9 @@ export default async function ImageSearchPage({ searchParams }) {
           </Link>
         </p>
       </div>
+      </Suspense>
     );
   }
 
-  return <div>{results && <ImageSearchResults results={data} />}</div>;
+  return <Suspense><div>{results && <ImageSearchResults results={data} />}</div></Suspense>;
 }
