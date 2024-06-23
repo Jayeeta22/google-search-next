@@ -1,6 +1,6 @@
 import WebSearchResults from '@/app/components/WebSearchResults';
 import Link from 'next/link';
-
+import { Suspense } from 'react'
 export default async function WebSearchPage({ searchParams }) {
   const startIndex = searchParams.start || '1';
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -13,6 +13,7 @@ export default async function WebSearchPage({ searchParams }) {
 
   if (!results) {
     return (
+      <Suspense>
       <div className='flex flex-col justify-center items-center pt-10'>
         <h1 className='text-3xl mb-4'>
           No results found for {searchParams.searchTerm}
@@ -24,8 +25,9 @@ export default async function WebSearchPage({ searchParams }) {
           </Link>
         </p>
       </div>
+      </Suspense>
     );
   }
 
-  return <div>{results && <WebSearchResults results={data} />}</div>;
+  return <Suspense><div>{results && <WebSearchResults results={data} />}</div></Suspense>;
 }
